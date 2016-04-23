@@ -39,9 +39,10 @@ class Data_Stream(models.Model):
 
     class Meta:
         ordering = ('stream', 'day')
+        unique_together = ('stream', 'day')
 
     def __unicode__(self):
-        return self.stream + " " + self.day
+        return str(self.stream) + " " + str(self.day)
 
 """
 Daily stream temperature for all streams
@@ -53,6 +54,7 @@ class Data_Stream_Temp(models.Model):
 
     class Meta:
         ordering = ('stream', 'day')
+        unique_together = ('stream', 'day')
 
     def __unicode__(self):
-        return self.steam + " " + self.day
+        return str(self.stream) + " " + str(self.day)

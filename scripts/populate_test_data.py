@@ -7,7 +7,7 @@ import sys
 
 
 script_path = os.path.dirname(__file__)
-project_dir = os.path.abspath(os.path.join(script_path, '../','..','wecsl_test'))
+project_dir = os.path.abspath(os.path.join(script_path, '../','..','fishackathon2016'))
 sys.path.insert(0, project_dir)
 
 # Set the django settings module to the symlink in the scripts directory (which points to the actual file)
@@ -18,58 +18,52 @@ django.setup()
 import xml.etree.ElementTree as eTree
 import datetime
 
-from carp_watcher import Stream, Data_Stream_Temp
+from carp_watcher.models import Stream, Data_Stream_Temp
+
+def setup_test_stream_data():
+    """
+    Parses an XML file containing stream information and daily temperature information for that stream
+    -Stream
+        - Name
+    -Data
+        -Date {month, day, year}
+            - Temp
+    """
+
+    stream_tree = eTree.parse('test_data.xml').getroot()
+    stream_name = stream_tree.find('stream').text
+
+    stream_ins = create_stream(stream_name)
+    data = stream_tree.find('data')
+    create_data(data, stream_ins)
 
 
-# noinspection PyBroadException
-def setup_schedule():
+def create_stream(stream_name):
     """
-    Parses an XML file and populates the database with Game model instances.
-    :return: void:
+    Populates the database with a stream object
+    :param stream_name: {String} Stream name
+    :return: {Model.objects.Stream}  Instance of stream model corresponding to inputted name
     """
-    schedule_tree = eTree.parse('schedule.xml').getroot()
-    for game_day in schedule_tree:
-        # generate a date object for a particular day
-        year = int(game_day.attrib['year'])
-        day = int(game_day.attrib['day'])
-        month = int(game_day.attrib['month'])
+    stream_ins = Stream.objects.get_or_create(name=stream_name)[0]
+    return stream_ins
+
+def create_data(data, stream_ins):
+    """
+    Populates the database with temperature data for a stream
+    :param data: {Element.list} A list of eTree objects with date and temperature information
+    :param stream_ins: Stream model instance to which the data belongs
+    :return: void
+    """
+
+    for date in data:
+        year = int(date.attrib['year'])
+        month = int(date.attrib['month'])
+        day = int(date.attrib['day'])
+
         date_obj = datetime.date(year, month, day)
-        for game_time in game_day:
-            # (cont..) for each time in that date, generate a time object and find the correct teams
-            # then add create a game model instance and save it to the database
-            start_time = game_time.attrib['start_time']
-            time_obj = datetime.datetime.strptime(start_time, '%H:%M').time()
-            try:
-                home_query = game_time.find('home_team').text
-                away_query = game_time.find('away_team').text
-                home_team_ins = Team.objects.get(name=home_query)
-                away_team_ins = Team.objects.get(name=away_query)
-                add_game(date_obj, time_obj, home_team_ins, away_team_ins)
-            except:
-                print('Probable error in XML: Queries are\n' +
-                      ' home_team ' + home_query + '\n'
-                      ' away_team ' + away_query + '\n'
-                      ' date_obj ' + str(date_obj) + '\n'
-                      ' game_time ' + str(time_obj))
+        temp = date.find('temp').text
+        stream_data_obj = Data_Stream_Temp.objects.get_or_create(stream=stream_ins, day=date_obj, temp=temp)
+        print('added day: ' + str(date_obj) + ' temp ' + temp)
 
-
-
-
-def add_game(date_obj, time_obj, home_team_ins, away_team_ins):
-    """
-    Adds a game to the database
-    :param date_obj: {datetime.date} the day of the game
-    :param time_obj: {datetime.time} the time of the game
-    :param home_team_ins: {Model.object.Team} the home team (instance object)
-    :param away_team_ins: {Model.object.Team} the away team (instance object)
-    :return: game_ins: {Model.object.Game} instance object of the game created
-    """
-    print ('Adding game: ' + str(date_obj) + ' ' + str(time_obj.strftime('%H:%M')) + ' ' +
-           away_team_ins.name + ' at ' + home_team_ins.name)
-    game_ins = Game.objects.get_or_create(game_date=date_obj, game_time=time_obj,
-                                          home_team=home_team_ins, away_team=away_team_ins)[0]
-    return game_ins
-
-
-setup_stream_and_temp()
+setup_test_stream_data()
 
