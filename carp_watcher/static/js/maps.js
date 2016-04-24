@@ -6,40 +6,6 @@ GET gets list.
 
 var map;
 
-var data = [ {
-  name: 'Point Grey River',
-  lat: '49.1320129',
-  lng: '-123.1',
-  suitable: 'major'
-},
-{
-name: 'A Grey River',
-lat: '50.11',
-lng: '-119.57',
-suitable: 'minor'
-},
-{
-name: 'Some Grey River',
-lat: '54.2',
-lng: '-115.73',
-suitable: 'invalid'
-
-},
-{
-name: 'lol a Grey River',
-lat: '52.71',
-lng: '-113.43',
-suitable: 'major'
-
-},
-{
-name: 'i wont swim and hate Grey Rivers',
-lat: '49.1320129',
-lng: '-123.1',
-suitable: 'minor'
-
-},
-]
 
 function setupMap() {
   var americaCenter, infoWindow;
@@ -87,27 +53,28 @@ function processData(info){
     }
   }
 }
-function handleGetMarkerDataSuccess (response) {
-  alert('success');
-}
-function handleGetMarkerDataError(error){
-  alert('error!');
-}
 
 function getMarkerData(){
+  debugger
   $.ajax({
-    url: "/showall/",
-    type: "get", //send it through get method
-    success: handleGetMarkerDataSuccess(response),
-    error: handleGetMarkerDataError(error)
+    url:"/showall/",
+    success: function( data ) {
+    debugger
+    alert( "Load was performed." );
+  },
+  error: function (data) {
+    console.log(data);
+    alert("Error!");
+  }
   });
+
 }
 
 function initMap() {
   var info;
   setupMap();
   // GET request.
-//  info = getMarkerData();
-  info = data;
+  info = getMarkerData();
+// info = data;
   processData(info);
 };

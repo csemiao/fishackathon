@@ -14,12 +14,10 @@ def main_page(request):
 def show_all(request):
     if request.method == 'GET':
         results = d_tree.get_data()
-        return JsonResponse(results, safe=False)
+        return JsonResponse(json.dumps(results), safe=False)
 
 def length_data(request):
     return ('hello')
 
 def velocity_data(request):
     return ('hello')
-
-
