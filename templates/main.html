@@ -19,13 +19,31 @@ in the css directory -->
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    
+
     <link rel="stylesheet" type="text/css" href={% static 'css/carp_watcher.css' %}>
 </head>
 <body>
 
-<div id = "map" > </div>
-<br>
+<div class = "container">
+
+<div class = "navbar">
+  <h1>  CARP WATCHER </h1<>
+</div>
+
+<div class = "row">
+  <div class = "col-lg-12">
+  <div id = "map" > </div>
+  </div>
+</div>
+</div>
+
+<hr>
+<footer class="footer">
+     <div class="container">
+       <p class="text-muted"> Copyright 2016 from awesome people.</p>
+     </div>
+   </footer>
+
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCiNm0NZzuiOytprkwLpGRXmNpp3KfFiY&callback=initMap" async defer></script>
 <script type = "text/javascript" src = "/static/js/maps.js"> </script>
 </body>
