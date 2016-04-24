@@ -4,7 +4,6 @@ Functions related to degree days
 
 
 from carp_watcher.models import Stream
-from carp_watcher.models import Data_Stream_Temp
 
 import datetime
 

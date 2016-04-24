@@ -1,4 +1,3 @@
-import jsonpickle as jp
 import degree_days as deg_day
 import temperature as temp
 import length as length
@@ -39,7 +38,7 @@ def follow_decision_tree(stream):
 
     #Calculate stream length
     predicted_length = length.get_length(stream)
-    if stream.length < predicted_length:
+    if float(stream.length) < predicted_length:
         return make_result(stream, 0)
 
     #Assign flow spike choices
