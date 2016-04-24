@@ -16,6 +16,17 @@ dataset2 = [
     {key: 110, value: 300}
 ];
 
+dataset3 = [
+    {key: 0, value: 0},
+    {key: 30, value: 70},
+    {key: 50, value: 150},
+    {key: 70, value: 200},
+    {key: 90, value: 250},
+    {key: 110, value: 300}
+];
+
+updatedData = [];
+
 var key = function (d) {
     return d.key;
 };
@@ -28,43 +39,69 @@ var margin = 40;
 var w = $(window).width();
 var h = $(window).height() - margin;
 
+var mindate = new Date(1000, 1, 1),
+    maxdate = new Date(2016, 1, 12);
+
 
 //axis sizes
-var xScale = d3.scale.linear()
-    .domain([0, w])
+var xScale = d3.time.scale()
+    .domain([mindate, maxdate])
     .range([margin, w]);
 
 var yScale = d3.scale.linear()
     .domain([0, h])
     .range([h, 0]);
 
-var xAxis = d3.svg.axis().scale(xScale),
-    yAxis = d3.svg.axis().scale(yScale).orient("left");
+var xAxis = d3.svg.axis()
+    .scale(xScale)
+    .tickFormat(d3.time.format("%Y-%m-%d")),
+    yAxis = d3.svg.axis()
+        .scale(yScale)
+        .orient("left");
 
+function graphInit() {
 
-function init() {
+//axis sizes
+var x = d3.time.scale()
+    .domain([mindate, maxdate])
+    .range([margin, w]);
 
+var yScale = d3.scale.linear()
+    .domain([0, h])
+    .range([h, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(xScale)
+    .tickFormat(d3.time.format("%Y-%m-%d")),
+    yAxis = d3.svg.axis()
+        .scale(yScale)
+        .orient("left");
 // Define the div for the tooltip
-    var tooltip = d3.select("body").append("div")
+    var tooltip = d3.select(".tempGraph").append("div")
         .attr("class", "tooltip")
         .style("opacity", 0);
+    var format = d3.time.format("%Y-%m-%d");
+    var dateFn = function(d) {return format.parse(d.key)};
 
-
+console.log(key);
 //Create Graph element
-     svg = d3.select("body")
+     svg = d3.select(".tempGraph")
         .append("svg")
          .attr("class", "graph")
         .attr("width", "100%")
         .attr("height", "100%");
 
     svg.selectAll("circle")
-        .data(dataset1, key)
+        .data(updatedData, key)
         .enter()
         .append("circle")
         .attr("class", "datapoint")
         .attr("fill", "dodgerblue")
         .attr("cx", function (d) {
-            return (d.key + margin);
+            var parsedDate = dateFn(d);
+parsedDate = parsedDate.trim();
+
+            return parsedDate;
         })
         .attr("cy", function (d) {
             return (h - d.value);
@@ -102,6 +139,21 @@ function init() {
         .call(yAxis);
 }
 
+function getStreamData(streamName){
+     $.ajax({
+    url: "/gettemp/",
+    type:"GET",
+    data: {stream: streamName}
+  }).done(function(data){
+     console.log(data);
+         for(var i = 0; i < data.length; i++){
+             updatedData.push(data[i]);
+             console.log(data[i]);
+         }
+         graphInit();
+
+  });
+}
 
 function update() {
     console.log("updating");
@@ -130,7 +182,7 @@ function update() {
                 .attr("r", 8)  // Change radius
                 .transition()
                 .duration(100)
-                .attr("cx", function (d) { return d.key + margin; })
+                .attr("cx", function (d) { return d.key; })
                 .attr("cy", function (d) { return (h - d.value); })
                 .attr("title", function (d) {
                     return d[1];
