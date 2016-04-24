@@ -14,7 +14,7 @@ function setupMap() {
 
   map = new google.maps.Map(document.getElementById('map'), {
     center: americaCenter,
-    zoom: 3
+    zoom: 4
   });
 }
 
