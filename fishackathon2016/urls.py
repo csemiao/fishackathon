@@ -21,4 +21,7 @@ from carp_watcher import views
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.main_page, name='main_page'),
+    url(r'showall/', views.show_all, name='endall'),
+    url(r'lengthdata/', views.length_data, name='length_graph'),
+    url(r'velocitydata/', views.velocity_data, name='velocity_graph')
 ]
