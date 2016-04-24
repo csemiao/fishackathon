@@ -6,40 +6,6 @@ GET gets list.
 
 var map;
 
-var data = [ {
-  name: 'Point Grey River',
-  lat: '49.1320129',
-  lng: '-123.1',
-  suitable: 'major'
-},
-{
-name: 'A Grey River',
-lat: '50.11',
-lng: '-119.57',
-suitable: 'minor'
-},
-{
-name: 'Some Grey River',
-lat: '54.2',
-lng: '-115.73',
-suitable: 'invalid'
-
-},
-{
-name: 'lol a Grey River',
-lat: '52.71',
-lng: '-113.43',
-suitable: 'major'
-
-},
-{
-name: 'i wont swim and hate Grey Rivers',
-lat: '49.1320129',
-lng: '-123.1',
-suitable: 'minor'
-
-},
-]
 
 function setupMap() {
   var americaCenter, infoWindow;
@@ -48,7 +14,7 @@ function setupMap() {
 
   map = new google.maps.Map(document.getElementById('map'), {
     center: americaCenter,
-    zoom: 3
+    zoom: 4
   });
 }
 
@@ -71,7 +37,7 @@ function setUpInfoWindow (info, i, marker) {
 };
 
 function processData(info){
-  var marker, markerColor, position, greenMarker, icon;
+  var marker, markerColor, position, greenMarker;
   greenMarker =  new google.maps.MarkerImage("http://maps.google.com/mapfiles/ms/icons/green-dot.png")
 
   if (info){
@@ -82,32 +48,25 @@ function processData(info){
     map: map,
     position: position,
     title: info[i].name});
-    // setupInfoWindow will need to be passed the suitable status in text.
     setUpInfoWindow(info, i, marker);
     }
   }
 }
-function handleGetMarkerDataSuccess (response) {
-  alert('success');
-}
-function handleGetMarkerDataError(error){
-  alert('error!');
-}
 
 function getMarkerData(){
   $.ajax({
-    url: "/showall/",
-    type: "get", //send it through get method
-    success: handleGetMarkerDataSuccess(response),
-    error: handleGetMarkerDataError(error)
+    url:"/showall/",
+    success: function( data ) {
+      processData(data);  },
+  error: function (data) {
+    console.log(data);
+    }
   });
+
 }
 
 function initMap() {
   var info;
   setupMap();
-  // GET request.
-//  info = getMarkerData();
-  info = data;
-  processData(info);
+  getMarkerData();
 };
