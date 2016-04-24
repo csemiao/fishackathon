@@ -1,11 +1,30 @@
 body {
     margin: 0;
+    font-family: Verdana;
+    font-size: 15px;
 }
 
 svg.graph {
     width: 100%;
     height: 100%;
     overflow: visible;
+}
+
+svg.graph circle:hover {
+    r: 10;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: auto;
+    height: auto;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
 }
 
 .axis path,
