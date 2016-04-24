@@ -3,8 +3,6 @@ from django.shortcuts import render
 from django.http import JsonResponse
 
 import logic.decision_tree as d_tree
-import logic.temperature as temp
-import logic.length as length
 
 
 def main_page(request):
@@ -18,15 +16,8 @@ def show_all(request):
         results = d_tree.get_data()
         return JsonResponse(results, safe=False)
 
-def get_length(request):
-    if request.method == 'GET':
-        stream_name = request.GET.get('stream')
-        data = length.get_length_graph_data(stream_name)
-        return JsonResponse(data, safe=False)
+def length_data(request):
+    return ('hello')
 
-
-def get_temp(request):
-    if request.method == 'GET':
-        stream_name = request.GET.get('stream')
-        data = temp.get_temp_graph_data(stream_name)
-        return JsonResponse(data, safe=False)
+def velocity_data(request):
+    return ('hello')
