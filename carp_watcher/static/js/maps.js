@@ -21,7 +21,7 @@ function setupMap() {
 function setInfoWindowMarkup () {
   var html;
   html = '<div class = "cw-flow-status"> Hi this is my flow status'
-        +'<div class="cw-graph">graph goes here. scale size as necessary</div>'
+        +'<div class="cw-graph"></div>'
         + '</div>'
   return html;
 }
@@ -33,6 +33,7 @@ function setUpInfoWindow (info, i, marker) {
   });
   marker.addListener('click',function(){
     infowindow.open(map, marker);
+    init();
   });
 };
 

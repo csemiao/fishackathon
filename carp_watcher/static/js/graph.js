@@ -25,9 +25,12 @@ var margin = 40;
 // var h = 400;
 
 //Fit to screen
-var w = $(window).width() - margin;
-var h = $(window).height() - margin;
+//var w = $(window).width() - margin;
+//var h = $(window).height() - margin;
 
+//Fit to Container
+var w = 100;
+var h = 100;
 
 //axis sizes
 var xScale = d3.scale.linear()
@@ -43,15 +46,16 @@ var xAxis = d3.svg.axis().scale(xScale),
 
 
 function init() {
+    console.log("INIT");
 
 // Define the div for the tooltip
-    var tooltip = d3.select("body").append("div")
+    var tooltip = d3.select(".cw-graph").append("div")
         .attr("class", "tooltip")
         .style("opacity", 0);
 
 
 //Create Graph element
-     svg = d3.select("body")
+     svg = d3.select(".cw-graph")
         .append("svg")
          .attr("class", "graph")
         .attr("width", "100%")
