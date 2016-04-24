@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.main_page, name='main_page'),
     url(r'showall/', views.show_all, name='endall'),
-    url(r'lengthdata/', views.length_data, name='length_graph'),
-    url(r'velocitydata/', views.velocity_data, name='velocity_graph')
+    url(r'getlength/', views.get_length, name='length_graph'),
+    url(r'gettemp/', views.get_temp, name='velocity_graph')
+
 ]

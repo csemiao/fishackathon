@@ -2,7 +2,7 @@
 Logic related to stream lengths
 """
 
-from carp_watcher.models import Data_Stream, Fish
+from carp_watcher.models import Data_Stream, Fish, Stream
 import datetime
 
 def get_length(stream):
@@ -30,3 +30,34 @@ def get_length(stream):
         length = 3.6 * float(data_stream.velocity) * incubation_time
 
         return length
+
+
+def get_length_graph_data(stream):
+    # here stream is a string
+
+    to_return = []
+
+    date = datetime.datetime.now()
+    year = datetime.datetime.strftime(date, "%Y")
+
+    stream_ins = Stream.objects.get(name="Chris Creek")
+    fish = Fish.objects.get(pk=1)
+    coeff = fish.coefficient
+    exponent = fish.exponent
+
+    data_points = Data_Stream.objects.filter(stream=stream_ins).filter(day__year=year)
+
+    for data_point in data_points:
+        temp = float(data_point.temp)
+        day = datetime.datetime.strftime(data_point.day, "%Y-%m-%d")
+        incubation_time = pow(temp, float(exponent))
+        length = 3.6 * incubation_time * float(data_point.velocity)
+
+        dict_obj = {
+            "key": day,
+            "value": length
+        }
+
+        to_return.append(dict_obj)
+
+    return to_return
