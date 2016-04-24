@@ -20,6 +20,7 @@ class Stream (models.Model):
     name = models.CharField(max_length=50)
     lat = models.DecimalField(max_digits=12, decimal_places=9)
     long = models.DecimalField(max_digits=12, decimal_places=9)
+    length = models.DecimalField(max_digits=10, decimal_places=2)
     coeff_x2 = models.DecimalField(max_digits=7, decimal_places=4, default=0)
     coeff_x = models.DecimalField(max_digits=7, decimal_places=4, default=0)
     coeff_con = models.DecimalField(max_digits=7, decimal_places=4, default=0)
@@ -38,6 +39,7 @@ class Data_Stream(models.Model):
     velocity = models.DecimalField(max_digits=7, decimal_places=4)
     discharge = models.DecimalField(max_digits=7, decimal_places=2)
     day = models.DateTimeField()
+    spike = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('stream', 'day')
