@@ -38,6 +38,10 @@ function setInfoWindowMarkup (streamName, statusText) {
           + streamName + '</b><br>'
           + statusText + '<br>'
         + '</div>'
+    + '<div class="link-container">'
+      + '<a target="_blank" href="/static/graph.html">Show Graph</a>'
+    + '</div>';
+    
   return html;
 }
 
@@ -50,7 +54,7 @@ function setUpInfoWindow (info, i, marker) {
   });
   marker.addListener('click',function(){
     infowindow.open(map, marker);
-    getStreamData(streamData.name);
+    //getStreamData(streamData.name);
   });
 
 };

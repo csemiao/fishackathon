@@ -34,7 +34,22 @@ div.tooltip {
     shape-rendering: crispEdges;
 }
 
-button {
+a {
     position: absolute;
     right: 0;
+    padding: 20px;
+    border: 1px solid royalblue;
+    background-color: dodgerblue;
+    color: #fff;
+    width: 70px;
+    height: 20px;
+    text-align: center;
+    text-decoration: none;
+    margin: 10px;
+}
+
+a:hover{
+    background-color: midnightblue;
+    color: #fff;
+    cursor: pointer;
 }

@@ -1,19 +1,33 @@
 dataset1 = [
     {key: 0, value: 0},
-    {key: 20, value: 50},
-    {key: 40, value: 100},
-    {key: 60, value: 150},
-    {key: 80, value: 200},
-    {key: 100, value: 250},
+    {key: 2, value: 50},
+    {key: 4, value: 239},
+    {key: 6, value: 150},
+    {key: 8, value: 598},
+    {key: 10, value: 250},
+    {key: 12, value: 230},
+    {key: 14, value: 50},
+    {key: 16, value: 124},
+    {key: 18, value: 3},
+    {key: 20, value: 236},
+    {key: 22, value: 23},
+    {key: 24, value: 23}
 ];
 
 dataset2 = [
     {key: 0, value: 0},
-    {key: 30, value: 70},
-    {key: 50, value: 150},
-    {key: 70, value: 200},
-    {key: 90, value: 250},
-    {key: 110, value: 300}
+    {key: 2, value: 92},
+    {key: 4, value: 82},
+    {key: 6, value: 200},
+    {key: 8, value: 428},
+    {key: 10, value: 62},
+    {key: 12, value: 539},
+    {key: 14, value: 70},
+    {key: 16, value: 150},
+    {key: 18, value: 283},
+    {key: 20, value: 295},
+    {key: 22, value: 276},
+    {key: 24, value: 23}
 ];
 
 var key = function (d) {
@@ -27,11 +41,13 @@ var margin = 40;
 //Fit to screen
 var w = $(window).width();
 var h = $(window).height() - margin;
+var range = 24;
+var unit = w/24;
 
 
 //axis sizes
 var xScale = d3.scale.linear()
-    .domain([0, w])
+    .domain([0, 24])
     .range([margin, w]);
 
 var yScale = d3.scale.linear()
@@ -64,7 +80,7 @@ function init() {
         .attr("class", "datapoint")
         .attr("fill", "dodgerblue")
         .attr("cx", function (d) {
-            return (d.key + margin);
+            return (d.key*unit + margin);
         })
         .attr("cy", function (d) {
             return (h - d.value);
@@ -125,12 +141,12 @@ function update() {
         .each("end", function() {  // End animation
             d3.select(this)  // 'this' means the current element
                 .transition()
-                .duration(500)
+                .duration(1000)
                 .attr("fill", "green")  // Change color
                 .attr("r", 8)  // Change radius
                 .transition()
-                .duration(100)
-                .attr("cx", function (d) { return d.key + margin; })
+                .duration(1000)
+                .attr("cx", function (d) { return d.key*unit + margin; })
                 .attr("cy", function (d) { return (h - d.value); })
                 .attr("title", function (d) {
                     return d[1];
