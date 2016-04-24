@@ -1,0 +1,13 @@
+#map {
+  height: 400px;
+  width: 100%
+}
+.cw-graph{
+  height: 100px;
+  width: 100px;
+  margin: 0 auto;
+}
+.cw-flow-status {
+  min-height: 50px;
+  font-size: 16px;
+}
