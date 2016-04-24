@@ -18,9 +18,6 @@ Stream model
 """
 class Stream (models.Model):
     name = models.CharField(max_length=50)
-    coeff_x2 = models.DecimalField(max_digits=7, decimal_places=4, default=0)
-    coeff_x = models.DecimalField(max_digits=7, decimal_places=4, default=0)
-    coeff_con = models.DecimalField(max_digits=7, decimal_places=4, default=0)
 
     class Meta:
         ordering = ('name',)
@@ -34,23 +31,8 @@ Daily stream data for all streams
 class Data_Stream(models.Model):
     stream = models.ForeignKey(Stream)
     velocity = models.DecimalField(max_digits=7, decimal_places=4)
-    discharge = models.DecimalField(max_digits=7, decimal_places=2)
     day = models.DateTimeField()
-
-    class Meta:
-        ordering = ('stream', 'day')
-        unique_together = ('stream', 'day')
-
-    def __unicode__(self):
-        return str(self.stream) + " " + str(self.day)
-
-"""
-Daily stream temperature for all streams
-"""
-class Data_Stream_Temp(models.Model):
-    stream = models.ForeignKey(Stream)
-    temp = models.IntegerField()
-    day = models.DateTimeField()
+    temp = models.DecimalField(max_digits=7, decimal_places=4)
 
     class Meta:
         ordering = ('stream', 'day')
