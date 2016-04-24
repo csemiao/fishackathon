@@ -7,8 +7,8 @@ Fish model
 """
 class Fish (models.Model):
     name = models.CharField(max_length=50)
-    coefficient = models.DecimalField(max_digits=10, decimal_places=2)
-    exponent = models.DecimalField(max_digits=10, decimal_places=8)
+    coefficient = models.DecimalField(max_digits=10, decimal_places=3)
+    exponent = models.DecimalField(max_digits=10, decimal_places=7)
 
     def __unicode__(self):
         return self.name
