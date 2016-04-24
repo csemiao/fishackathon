@@ -16,15 +16,6 @@ dataset2 = [
     {key: 110, value: 300}
 ];
 
-dataset3 = [
-    {key: 0, value: 0},
-    {key: 30, value: 70},
-    {key: 50, value: 150},
-    {key: 70, value: 200},
-    {key: 90, value: 250},
-    {key: 110, value: 300}
-];
-
 updatedData = [];
 
 var key = function (d) {
@@ -37,7 +28,7 @@ var margin = 40;
 
 //Fit to screen
 var w = $(window).width();
-var h = $(window).height() - margin;
+var h = $(window).height() - 2* margin;
 
 var mindate = new Date(1000, 1, 1),
     maxdate = new Date(2016, 1, 12);
@@ -89,19 +80,18 @@ console.log(key);
         .append("svg")
          .attr("class", "graph")
         .attr("width", "100%")
-        .attr("height", "100%");
+        .attr("height", "100%")
+         .attr("viewBox", "0 0 500 150")
+         .attr("preserveAspectRatio", "xMinYMin meet");
 
     svg.selectAll("circle")
-        .data(updatedData, key)
+        .data(dataset1, key)
         .enter()
         .append("circle")
         .attr("class", "datapoint")
         .attr("fill", "dodgerblue")
         .attr("cx", function (d) {
-            var parsedDate = dateFn(d);
-parsedDate = parsedDate.trim();
-
-            return parsedDate;
+            return (d.value + margin);
         })
         .attr("cy", function (d) {
             return (h - d.value);
