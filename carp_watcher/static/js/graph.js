@@ -44,6 +44,10 @@ var xAxis = d3.svg.axis().scale(xScale),
 
 function init() {
 
+// Define the div for the tooltip
+    var tooltip = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
 
 
 //Create Graph element
@@ -68,7 +72,20 @@ function init() {
         .attr("title", function (d) {
             return d.value;
         })
-        .attr("r", 5);
+        .attr("r", 5)
+        .on("mouseover", function(d) {
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", .9);
+            tooltip.html("Day : " + d.key  + "<br>" + "Length: " + d.value)
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+        })
+        .on("mouseout", function(d) {
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+        });
 
     //Render x-axis
    svg.append("g")
