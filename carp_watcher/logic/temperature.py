@@ -6,7 +6,7 @@ def get_temp_graph_data(stream):
     to_return = []
     # note that stream is a string here
 
-    stream_ins = Stream.objects.get(name="Chris Creek")
+    stream_ins = Stream.objects.get(name=stream)
     date = datetime.datetime.now()
     year = datetime.datetime.strftime(date, "%Y")
     data_points_ins = Data_Stream.objects.filter(stream=stream_ins).filter(day__year=year)

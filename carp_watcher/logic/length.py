@@ -40,7 +40,7 @@ def get_length_graph_data(stream):
     date = datetime.datetime.now()
     year = datetime.datetime.strftime(date, "%Y")
 
-    stream_ins = Stream.objects.get(name="Chris Creek")
+    stream_ins = Stream.objects.get(name=stream)
     fish = Fish.objects.get(pk=1)
     coeff = fish.coefficient
     exponent = fish.exponent
