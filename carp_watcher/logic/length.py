@@ -24,7 +24,7 @@ def get_length(stream):
         raise Exception('too many data_stream instances when calculating length')
     else:
         data_stream = data_stream_ins[0]
-        fish_ins = Fish.objects.get(pk=1)   #TODO: get the first fish object... we will fix this later
+        fish_ins = Fish.objects.get(pk=1)   # TODO: get the first fish object... we will fix this later
         incubation_time = pow(float(data_stream.temp), float(fish_ins.exponent)) * float(fish_ins.coefficient)
 
         length = 3.6 * float(data_stream.velocity) * incubation_time
@@ -50,7 +50,7 @@ def get_length_graph_data(stream):
     for data_point in data_points:
         temp = float(data_point.temp)
         day = datetime.datetime.strftime(data_point.day, "%Y-%m-%d")
-        incubation_time = pow(temp, float(exponent))
+        incubation_time = pow(temp, float(exponent)) * coeff
         length = 3.6 * incubation_time * float(data_point.velocity)
 
         dict_obj = {
