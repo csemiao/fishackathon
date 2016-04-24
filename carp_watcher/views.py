@@ -21,5 +21,3 @@ def length_data(request):
 
 def velocity_data(request):
     return ('hello')
-
-
