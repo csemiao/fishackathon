@@ -7,16 +7,45 @@ in the css directory -->
 
 <html>
 <head lang="en">
-    <meta charset="UTF-8">
+    <title> fishackathon2016 csmiao repo for #3 </title>
+    <meta name = "viewport"charset="UTF-8">
     <title></title>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href={% static 'css/carp_watcher.css' %}>
 </head>
 <body>
 
-Fishhackathon main page
+<div class = "container">
 
-<br>
+<div class = "navbar">
+  <h1>  CARP WATCHER </h1<>
+</div>
 
-{{ message }}
+<div class = "row">
+  <div class = "col-lg-12">
+  <div id = "map" > </div>
+  </div>
+</div>
+</div>
 
+<hr>
+<footer class="footer">
+     <div class="container">
+       <p class="text-muted"> Copyright 2016 from awesome people.</p>
+     </div>
+   </footer>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCiNm0NZzuiOytprkwLpGRXmNpp3KfFiY&callback=initMap" async defer></script>
+<script type = "text/javascript" src = "/static/js/maps.js"> </script>
 </body>
+
 </html>

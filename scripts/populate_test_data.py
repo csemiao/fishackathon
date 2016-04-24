@@ -18,7 +18,7 @@ django.setup()
 import xml.etree.ElementTree as eTree
 import datetime
 
-from carp_watcher.models import Stream, Data_Stream_Temp
+from carp_watcher.models import Stream, Data_Stream
 
 def setup_test_stream_data():
     """
@@ -62,7 +62,7 @@ def create_data(data, stream_ins):
 
         date_obj = datetime.date(year, month, day)
         temp = date.find('temp').text
-        stream_data_obj = Data_Stream_Temp.objects.get_or_create(stream=stream_ins, day=date_obj, temp=temp)
+        stream_data_obj = Data_Stream.objects.get_or_create(stream=stream_ins, day=date_obj, temp=temp)
         print('added day: ' + str(date_obj) + ' temp ' + temp)
 
 setup_test_stream_data()
