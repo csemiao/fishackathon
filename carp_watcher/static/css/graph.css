@@ -1,5 +1,5 @@
 body {
-    padding: 10px;
+    margin: 0;
 }
 
 svg.graph {
@@ -9,6 +9,11 @@ svg.graph {
 .axis path,
 .axis line {
     fill: none;
-    stroke: black;
+    stroke: darkblue;
     shape-rendering: crispEdges;
+}
+
+button {
+    position: absolute;
+    right: 0;
 }

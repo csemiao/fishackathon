@@ -21,8 +21,13 @@ var key = function (d) {
 };
 
 var margin = 40;
-var w = 300;
-var h = 400;
+// var w = 500;
+// var h = 400;
+
+//Fit to screen
+var w = $(window).width() - margin;
+var h = $(window).height() - margin;
+
 
 //axis sizes
 var xScale = d3.scale.linear()
@@ -52,6 +57,8 @@ function init() {
         .data(dataset1, key)
         .enter()
         .append("circle")
+        .attr("class", "datapoint")
+        .attr("fill", "dodgerblue")
         .attr("cx", function (d) {
             return (d.key + margin);
         })
@@ -91,7 +98,7 @@ function update() {
         .duration(1000)  // Length of animation
         .each("start", function() {  // Start animation
             d3.select(this)  // 'this' means the current element
-                .attr("fill", "yellow")  // Change color
+                .attr("fill", "orange")  // Change color
                 .attr("r", 5);  // Change size
         })
         .delay(function(d, i) {
@@ -114,7 +121,10 @@ function update() {
                 .transition()
                 .duration(500)
                 .attr("r", 5)  // Change radius
-                .attr("fill", "black")  // Change color
+                .attr("fill", "dodgerblue")  // Change color
         });
 }
+
+
+
 
