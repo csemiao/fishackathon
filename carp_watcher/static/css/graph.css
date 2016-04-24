@@ -1,0 +1,14 @@
+body {
+    padding: 10px;
+}
+
+svg.graph {
+    overflow: visible;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
