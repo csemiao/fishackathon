@@ -25,12 +25,12 @@ var margin = 40;
 // var h = 400;
 
 //Fit to screen
-//var w = $(window).width() - margin;
-//var h = $(window).height() - margin;
+var w = $(window).width();
+var h = $(window).height() - margin;
 
 //Fit to Container
-var w = 100;
-var h = 100;
+// var w = $(".tempGraph").width() - margin;
+// var h = $(".tempGraph").height() - margin;
 
 //axis sizes
 var xScale = d3.scale.linear()
@@ -44,20 +44,38 @@ var yScale = d3.scale.linear()
 var xAxis = d3.svg.axis().scale(xScale),
     yAxis = d3.svg.axis().scale(yScale).orient("left");
 
+function getTempData(streamName) {
+    console.log(streamName);
+    $.ajax({
+        url: "/getTemp/",
+        type: "GET",
+        data: {stream: streamName},
+        success: function (data) {
+            processTempData(data)
+        },
+        error: function (data) {
+            console.log(data);
+        }
+    });
+}
 
-function init() {
+function processTempData(data) {
+    console.log(data);
+}
+
+function graphInit() {
     console.log("INIT");
 
 // Define the div for the tooltip
-    var tooltip = d3.select(".cw-graph").append("div")
+    var tooltip = d3.select("body").append("div")
         .attr("class", "tooltip")
         .style("opacity", 0);
 
 
 //Create Graph element
-     svg = d3.select(".cw-graph")
+    svg = d3.select("body")
         .append("svg")
-         .attr("class", "graph")
+        .attr("class", "graph")
         .attr("width", "100%")
         .attr("height", "100%");
 
@@ -77,22 +95,22 @@ function init() {
             return d.value;
         })
         .attr("r", 5)
-        .on("mouseover", function(d) {
+        .on("mouseover", function (d) {
             tooltip.transition()
                 .duration(200)
                 .style("opacity", .9);
-            tooltip.html("Day : " + d.key  + "<br>" + "Length: " + d.value)
+            tooltip.html("Day : " + d.key + "<br>" + "Length: " + d.value)
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
         })
-        .on("mouseout", function(d) {
+        .on("mouseout", function (d) {
             tooltip.transition()
                 .duration(500)
                 .style("opacity", 0);
         });
 
     //Render x-axis
-   svg.append("g")
+    svg.append("g")
         .attr("class", "axis x-axis")
         .attr("width", w)
         .attr("transform", "translate(0," + h + ")")
@@ -117,16 +135,16 @@ function update() {
         .data(dataset2)  // Update with new data HERE
         .transition()  // Transition from old to new data
         .duration(1000)  // Length of animation
-        .each("start", function() {  // Start animation
+        .each("start", function () {  // Start animation
             d3.select(this)  // 'this' means the current element
                 .attr("fill", "orange")  // Change color
                 .attr("r", 5);  // Change size
         })
-        .delay(function(d, i) {
+        .delay(function (d, i) {
             return i / dataset2.length * 500;  // Dynamic delay (i.e. each item delays a little longer)
         })
         //.ease("linear")  // Transition easing - default 'variable' (i.e. has acceleration), also: 'circle', 'elastic', 'bounce', 'linear'
-        .each("end", function() {  // End animation
+        .each("end", function () {  // End animation
             d3.select(this)  // 'this' means the current element
                 .transition()
                 .duration(500)
@@ -134,8 +152,12 @@ function update() {
                 .attr("r", 8)  // Change radius
                 .transition()
                 .duration(100)
-                .attr("cx", function (d) { return d.key + margin; })
-                .attr("cy", function (d) { return (h - d.value); })
+                .attr("cx", function (d) {
+                    return d.key + margin;
+                })
+                .attr("cy", function (d) {
+                    return (h - d.value);
+                })
                 .attr("title", function (d) {
                     return d[1];
                 })
