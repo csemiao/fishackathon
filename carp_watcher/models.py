@@ -35,7 +35,7 @@ class Data_Stream(models.Model):
     stream = models.ForeignKey(Stream)
     velocity = models.DecimalField(max_digits=7, decimal_places=4)
     day = models.DateTimeField()
-    temp = models.DecimalField()
+    temp = models.DecimalField(max_digits=7, decimal_places=4)
     spike = models.BooleanField(default=False)
 
     class Meta:
