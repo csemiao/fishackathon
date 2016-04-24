@@ -1,5 +1,7 @@
 from carp_watcher.models import Stream, Data_Stream
 import datetime
+from carp_watcher.models import Data_Stream
+
 
 
 def get_temp_graph_data(stream):
