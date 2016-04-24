@@ -18,22 +18,41 @@ function setupMap() {
   });
 }
 
-function setInfoWindowMarkup () {
+function parseStatus(status){
+    if (status == 0) {
+        return "Not suitable for spawning";
+    } else if (status == 1) {
+        return "Minimally suitable for spawning";
+    } else if (status == 2) {
+        return "Suitable for spawning";
+    } else if (status == 3) {
+        return "Very suitable for spawning";
+    } else if (status == 4) {
+        return "Highly suitable for spawning";
+    }
+}
+
+function setInfoWindowMarkup (streamName, statusText) {
   var html;
-  html = '<div class = "cw-flow-status"> Hi this is my flow status'
-        +'<div class="cw-graph">graph goes here. scale size as necessary</div>'
+  html = '<div class = "cw-flow-status"><b>'
+          + streamName + '</b><br>'
+          + statusText + '<br>'
         + '</div>'
   return html;
 }
 
 
 function setUpInfoWindow (info, i, marker) {
+    var streamData = info[i];
+    console.log(streamData);
   var infowindow = new google.maps.InfoWindow({
-    content: setInfoWindowMarkup()
+    content: setInfoWindowMarkup(streamData.name, parseStatus(streamData.status))
   });
   marker.addListener('click',function(){
     infowindow.open(map, marker);
+    getStreamData(streamData.name);
   });
+
 };
 
 function processData(info){
