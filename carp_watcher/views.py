@@ -14,7 +14,7 @@ def main_page(request):
 def show_all(request):
     if request.method == 'GET':
         results = d_tree.get_data()
-        return JsonResponse(json.dumps(results), safe=False)
+        return JsonResponse(results, safe=False)
 
 def length_data(request):
     return ('hello')

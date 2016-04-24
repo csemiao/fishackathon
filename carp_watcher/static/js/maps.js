@@ -37,7 +37,7 @@ function setUpInfoWindow (info, i, marker) {
 };
 
 function processData(info){
-  var marker, markerColor, position, greenMarker, icon;
+  var marker, markerColor, position, greenMarker;
   greenMarker =  new google.maps.MarkerImage("http://maps.google.com/mapfiles/ms/icons/green-dot.png")
 
   if (info){
@@ -48,24 +48,19 @@ function processData(info){
     map: map,
     position: position,
     title: info[i].name});
-    // setupInfoWindow will need to be passed the suitable status in text.
     setUpInfoWindow(info, i, marker);
     }
   }
 }
 
 function getMarkerData(){
-  debugger
   $.ajax({
     url:"/showall/",
     success: function( data ) {
-    debugger
-    alert( "Load was performed." );
-  },
+      processData(data);  },
   error: function (data) {
     console.log(data);
-    alert("Error!");
-  }
+    }
   });
 
 }
@@ -73,8 +68,5 @@ function getMarkerData(){
 function initMap() {
   var info;
   setupMap();
-  // GET request.
-  info = getMarkerData();
-// info = data;
-  processData(info);
+  getMarkerData();
 };
