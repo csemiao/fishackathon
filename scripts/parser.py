@@ -95,53 +95,35 @@ def create_data(stream, date, velocity, temp):
     temp = format_temp(temp)
     master = {}
     std = 0.7
-
+    obv = 120
+    l = len(date)/obv
+    n = 0
+    magic = 120
+    prev = 0
+    next = 120
     key = [datetime.date(d) for d in date]
     for k in key:
         if k not in master:
             master[key.index(k)] = k
     print master
-    master_tup = master.items()
-    print master_tup
-    obv = 120
-    l = len(master_tup)
-    n = 0
-    magic = 120
-    prev = 0
-    sucks = 1
-    if l == 1:
-        next = len(date)
-    else:
-        next = master_tup[sucks][0]
-    n_val = []
-    for m in master_tup:
-        n_val.append(m[0])
-    n_val.append(len(date) - 1)
-    n_val.sort()
-    print n_val
+    print "yayay", l
 
     for k in range(n,l):
-
-        print prev, next
-        next = n_val[sucks]
         bd = date[prev:next]
         bv = velocity[prev:next]
         bt = temp[prev:next]
         jarjar = pleasework(bd, bv, bt)
+        dd = master.get(prev)
+        prev = prev + magic
+        next = next + magic
+        n = n + 1
         v = jarjar[0]
         t = jarjar[1]
         spike = True if Decimal(v) > 0.7 else False
-        dd = master.get(prev)
-
+        print dd, jarjar
+        print spike
         stream_data_obj = Data_Stream.objects.get_or_create(stream=stream, day=dd, velocity=v, temp=t,
-                                                            spike=spike)
-
-        prev = next
-        print prev
-        n = n + 1
-        sucks = sucks + 1
-        print next
-
+                                                             spike=spike)
 
 
 
@@ -165,11 +147,8 @@ def pleasework(date, velocity, temp):
         else:
             v_hash[mkey] = v_val
 
-    effing_temp = t_hash.values()
+        effing_temp = t_hash.values()
     effing_vel = v_hash.values()
-    print effing_vel
-    print effing_temp
-    print "cauli",  [sum(t) for t in zip(*effing_vel)][0]
 
     etemp_sum = [sum(t) for t in zip(*effing_temp)][0]
     avt = format(etemp_sum / len(effing_temp), '.2f')
@@ -185,9 +164,9 @@ def commence(begin, end):
     velocity = v_velocity(tree)
     temp = t_temp(tree)
     date = d_date(tree)
-    create_data("A choc", date, velocity, temp)
+    create_data('Mui Miu', date, velocity, temp)
 
 begin = '2016-01-01'
-end = '2016-04-20'
+end = '2016-01-20'
 commence(begin, end)
 
