@@ -50,8 +50,8 @@ function init() {
      svg = d3.select("body")
         .append("svg")
          .attr("class", "graph")
-        .attr("width", w + margin)
-        .attr("height", h + margin);
+        .attr("width", "100%")
+        .attr("height", "100%");
 
     svg.selectAll("circle")
         .data(dataset1, key)
