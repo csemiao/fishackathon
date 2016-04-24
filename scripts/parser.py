@@ -150,7 +150,7 @@ def pleasework(date, velocity, temp):
     for d,v,t in zip(date, velocity, temp):
         date_obj = d
         mkey = d
-        vel = v
+        vel = v * Decimal(0.3048)
         temp = t
         value = [temp]
         v_val = [vel]
@@ -184,9 +184,9 @@ def commence(begin, end):
     velocity = v_velocity(tree)
     temp = t_temp(tree)
     date = d_date(tree)
-    create_data("A choc", date, velocity, temp)
+    create_data(stream, date, velocity, temp)
 
 begin = '2016-01-01'
-end = '2016-04-20'
+end = '2016-04-23'
 commence(begin, end)
 
