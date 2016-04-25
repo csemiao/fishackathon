@@ -11,6 +11,7 @@ in the css directory -->
     <meta name = "viewport"charset="UTF-8">
     <title></title>
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/graph.css">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
@@ -19,7 +20,7 @@ in the css directory -->
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
+<script type="text/javascript" src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <link rel="stylesheet" type="text/css" href={% static 'css/carp_watcher.css' %}>
 </head>
 <body>
@@ -29,6 +30,9 @@ in the css directory -->
 <div class = "navbar">
   <h1>  CARP WATCHER </h1>
 </div>
+
+    <div class="tempGraph"></div>
+<div class="lengthGraph"></div>
 
 <div class = "row">
   <div class = "col-lg-12">
@@ -46,7 +50,7 @@ in the css directory -->
 
 <script type = "text/javascript" src = "/static/js/maps.js"> </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCiNm0NZzuiOytprkwLpGRXmNpp3KfFiY&callback=initMap" async defer></script>
-
+<script type="text/javascript" src="/static/js/rendergraphs.js"></script>
 </body>
 
 </html>
