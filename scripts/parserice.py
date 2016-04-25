@@ -29,7 +29,9 @@ def coffee_parse(begin, end):
 
     begin = begin
     end = end
-    page = requests.get('http://waterdata.usgs.gov/mi/nwis/uv?cb_00055=on&cb_00010=on&format=html&site_no=04119400&period=&begin_date=' + begin + '&end_date=' + end)
+    # page = requests.get('http://waterdata.usgs.gov/mi/nwis/uv?cb_00055=on&cb_00010=on&format=html&site_no=04119400&period=&begin_date=' + begin + '&end_date=' + end)
+    # page = requests.get('http://waterdata.usgs.gov/nwis/uv?cb_00055=on&cb_00010=on&format=html&site_no=040851385&period=&begin_date='+ begin + '&end_date=' + end)
+    page = requests.get('http://waterdata.usgs.gov/ny/nwis/uv?cb_00055=on&cb_00010=on&format=html&site_no=04231600&period=&begin_date='+ begin + '&end_date=' + end)
     tree = html.fromstring(page.content)
     return tree
 
@@ -67,6 +69,7 @@ def format_temp(temp):
     stripped_temp = [t.encode('utf-8').strip() for t in stripped_temp]
     stripped_temp = [t.strip() for t in stripped_temp]
     stripped_temp = [str(t) for t in stripped_temp]
+    stripped_temp = [t.replace('Ice', '0.0') for t in stripped_temp]
     f_temp = [re.sub('((?<=,)|^)(?=,|$)', '0.0', s) for s in stripped_temp]
     f_temp = [(Decimal(t) if t else 0.0) for t in f_temp]
     return f_temp
