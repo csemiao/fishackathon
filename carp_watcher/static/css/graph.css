@@ -1,7 +1,7 @@
-body {
+body.carpwatcher {
     margin: 0;
     font-family: Verdana;
-    font-size: 15px;
+    font-size: 9px;
 }
 
 svg.graph {
@@ -11,7 +11,7 @@ svg.graph {
 }
 
 svg.graph circle:hover {
-    r: 10;
+    r: 5;
 }
 
 div.tooltip {
@@ -34,7 +34,7 @@ div.tooltip {
     shape-rendering: crispEdges;
 }
 
-a {
+a.carpwatcher{
     position: absolute;
     right: 0;
     padding: 20px;
@@ -48,7 +48,7 @@ a {
     margin: 10px;
 }
 
-a:hover{
+ a.carpwatcher:hover{
     background-color: midnightblue;
     color: #fff;
     cursor: pointer;
