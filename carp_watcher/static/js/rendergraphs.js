@@ -79,7 +79,7 @@ function initGraph() {
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", .9);
-                tooltip.html("Day : " + d.key + "<br>" + "Temp: " + d.value / 10)
+                tooltip.html("Day : " + d.key + "<br>" + "Temp: " + d.value / 20)
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 28) + "px");
             })
@@ -126,7 +126,7 @@ function getStreamData(streamName){
          for (var i = 0; i < data.length; i++) {
              // convert date strings to date objects
              data[i].key = stringToDate(data[i].key);
-             data[i].value *= 10;
+             data[i].value *= 20;
              liveData.push(data[i]);
          }
          minDate = liveData[0].key;
