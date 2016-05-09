@@ -136,21 +136,6 @@ function getStreamData(streamName){
 }
 
 function update() {
-    console.log("updating");
-
-    //get new data, recall endpoint;
-     $.ajax({
-    url: "/tempdata/",
-    type:"GET",
-    data: {stream: currentStream}
-     }).done(function (data) {
-         for (var i = 0; i < data.length; i++) {
-             liveData.push(data[i]);
-             console.log(data[i]);
-         }
-         minDate = liveData[0].key;
-         maxDate = liveData[liveData.length - 1].key;
-     });
 
     svg.selectAll("circle")
         .data(liveData)  // Update with new data HERE
