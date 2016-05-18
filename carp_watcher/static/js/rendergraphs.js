@@ -42,11 +42,7 @@ function initGraph() {
         var tooltip = d3.select(".liveGraph").append("div")
             .attr("class", "tooltip")
             .style("opacity", 0);
-        var format = d3.time.format("%Y-%m-%d");
-        var dateFn = function (d) {
-            return format.parse(d.key)
-        };
-
+        
 //Create Graph element
         svg = d3.select(".liveGraph")
             .append("svg")
@@ -115,6 +111,7 @@ function stringToDate(dateString) {
 }
 
 function getStreamData(streamName){
+    var format = d3.time.format("%Y-%m-%d");
     console.log("getStreamData: " + streamName);
      $.ajax({
     url: "/tempdata/",
@@ -125,7 +122,7 @@ function getStreamData(streamName){
          liveData = [];
          for (var i = 0; i < data.length; i++) {
              // convert date strings to date objects
-             data[i].key = stringToDate(data[i].key);
+             data[i].key = format.parse(data[i].key);
              data[i].value *= 20;
              liveData.push(data[i]);
          }
