@@ -5,7 +5,7 @@ GET gets list.
 */
 
 var map;
-
+var infowindow;
 
 function setupMap() {
   var americaCenter, infoWindow;
@@ -39,7 +39,7 @@ function setInfoWindowMarkup (streamName, statusText) {
           + statusText + '<br>'
         + '</div>'
     + '<div class="link-container">'
-      + '<a target="_blank" href="/static/graph.html">Show Graph</a>'
+      + '<a class="carpwatcher" onclick="initGraphContainer()">Show Graph</a>'
     + '</div>';
     
   return html;
@@ -49,12 +49,12 @@ function setInfoWindowMarkup (streamName, statusText) {
 function setUpInfoWindow (info, i, marker) {
     var streamData = info[i];
     console.log(streamData);
-  var infowindow = new google.maps.InfoWindow({
+  infowindow = new google.maps.InfoWindow({
     content: setInfoWindowMarkup(streamData.name, parseStatus(streamData.status))
   });
-  marker.addListener('click',function(){
+  marker.addListener('click', function(){
     infowindow.open(map, marker);
-    //getStreamData(streamData.name);
+    getStreamData(streamData.name);
   });
 
 };
